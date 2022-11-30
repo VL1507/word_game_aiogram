@@ -3,8 +3,7 @@ from random import choice
 from aiogram import Bot, Dispatcher, types, executor
 
 
-bot = Bot(token='',
-          parse_mode="HTML")
+bot = Bot(token='', parse_mode="HTML")
 dp = Dispatcher(bot=bot)
 
 
