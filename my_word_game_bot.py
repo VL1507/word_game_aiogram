@@ -14,13 +14,13 @@ dp = Dispatcher(bot=bot)
 async def start_help(msg: types.Message):
     print(msg.from_user.username, 'в start_help')
 
+    insert_update_table(
+        msg.from_user.id, msg.from_user.username, list_of_countries)
+
     with sqlite3.connect("my_games.sqlite") as con:
         cur = con.cursor()
         cur.execute(
-            "UPDATE users SET play_countries = ? WHERE user_id = ?", (0, msg.from_user.id))
-
-    insert_update_table(
-        msg.from_user.id, msg.from_user.username, list_of_countries)
+            "UPDATE users SET play_countries = ?, play_russian_cities = ? WHERE user_id = ?", (1, 0, msg.from_user.id))
 
     text = "Привет!\nЧтобы поиграть в страны, отправь /countries"
     await msg.answer(text)
