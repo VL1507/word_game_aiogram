@@ -5,6 +5,7 @@ from aiogram import Bot, Dispatcher, types, executor
 from word_lists import list_of_countries, list_of_russian_cities
 from keyboards import buttons
 
+"""     @my_word_game_bot     """
 
 bot = Bot(token='', parse_mode="HTML")
 dp = Dispatcher(bot=bot)
