@@ -10,7 +10,6 @@ bot = Bot(token='', parse_mode="HTML")
 dp = Dispatcher(bot=bot)
 
 
-
 @dp.message_handler(commands=["start", "help"])
 async def start_help(msg: types.Message):
     insert_update_table(msg.from_user.id, msg.from_user.username, list_of_countries, list_of_russian_cities)
