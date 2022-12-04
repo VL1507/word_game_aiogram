@@ -53,33 +53,40 @@ async def play_game(msg: types.Message):
                 last_letter = list(cur.execute("SELECT last_letter FROM countries_game WHERE user_id = ?", (msg.from_user.id,)))[0][0].upper()
                 used_words = []
                     
+                # вытаскиваю список использованных слов из бота. только теперь не понимаю почему именно так
                 for i in cur.execute("SELECT used_words FROM countries_game WHERE user_id = ?", (msg.from_user.id,)):
                     used_words.append(i[0].replace('_', ' '))
                 used_words = used_words[0].split()
           
+                # проверка было ли уже это слово
                 if msg.text not in used_words:
+                    # вытаскиваю слова, которые еще не отправлялись
                     bot_lst = []
                     for i in cur.execute("SELECT bot_lst FROM countries_game WHERE user_id = ?", (msg.from_user.id,)):
                         bot_lst.append(i[0])
                     bot_lst = bot_lst[0].split('_')
                     
+                    # знает ли бот это слово
                     if msg.text in bot_lst:
                         bot_lst.remove(msg.text)
                         used_words.append(msg.text)
                               
+                        # проверка начинается ли слово на последнюю букву предыдущего слова
                         if msg.text[0] == last_letter or last_letter == "KOSTYL":
                             print(used_words)
                             last_letter = msg.text.replace('ь', '').replace('ы', '')[-1].upper()
-                              
+                            
+                            # есть ли еще не использованные слова
                             if len([i for i in bot_lst if i[0] == last_letter]) != 0:
-                                bot_country = choice(
-                                    [i for i in bot_lst if i[0] == last_letter])
+                                # бот выбирает случайное слово
+                                bot_country = choice([i for i in bot_lst if i[0] == last_letter])
                                 bot_lst.remove(bot_country)
                                 used_words.append(bot_country)
                                 last_letter = bot_country.replace('ь', '').replace('ы', '')[-1].upper()
                                 cur.execute("UPDATE countries_game SET bot_lst = ?, used_words = ?, last_letter = ? WHERE user_id = ?", ("_".join(bot_lst), "_".join(used_words), last_letter, msg.from_user.id))
                                 await bot.send_message(chat_id=msg.from_user.id, text=bot_country, reply_to_message_id=msg.message_id)
 
+                                # проверка может ли игрок сделать следующий ход
                                 if len([i for i in bot_lst if i[0] == last_letter]) == 0:
                                     cur.execute("UPDATE users SET play_countries = ? WHERE user_id = ?", (0, msg.from_user.id))
                                     await msg.answer(f"Бот победил. больше нет слов на <b>{last_letter}</b>")
