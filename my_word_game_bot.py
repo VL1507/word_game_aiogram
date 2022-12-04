@@ -6,7 +6,7 @@ from word_lists import list_of_countries, list_of_russian_cities
 from keyboards import buttons
 
 
-bot = Bot(token='5846579844:AAEZxbPbLlzRzW92H9IvbVyx6OWZl3cPUMs', parse_mode="HTML")
+bot = Bot(token='', parse_mode="HTML")
 dp = Dispatcher(bot=bot)
 
 
