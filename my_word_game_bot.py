@@ -7,7 +7,7 @@ from keyboards import buttons
 
 
 bot = Bot(token='', parse_mode="HTML")
-dp = Dispatcher(bot=bot)
+dp = Dispatcher(bot=bot)/
 
 
 
