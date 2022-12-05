@@ -33,24 +33,12 @@ def create_db() -> None:
         last_letter TEXT
         )""")
 
-        # cur.execute("""CREATE TABLE IF NOT EXISTS cities_game (
-        # user_id INT,
-        # username TEXT,
-        # bot_lst TEXT,
-        # used_words TEXT
-        # )""")
-
         print("<<<<< db создана >>>>>")
 
 
 def insert_update_table(userid: int, username: str, list_of_countries: list, list_of_russian_cities: list) -> None:
-    """'обнуляет' или создает запись о человеке в countries_game
-
-    Args:
-        userid (int): id человека
-        username (str): имя человека
-        list_of_countries (list): список стран
-    """
+    """'обнуляет' или создает запись о человеке в countries_game"""
+    
     with sqlite3.connect("my_games.sqlite") as con:
         cur = con.cursor()
 
