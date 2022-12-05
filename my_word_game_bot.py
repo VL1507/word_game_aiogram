@@ -3,7 +3,7 @@ from random import choice
 from aiogram import Bot, Dispatcher, types, executor
 
 from keyboards import buttons
-from database import create_db, insert_update_table
+from database import create_db, insert_update_table, game
 from word_lists import list_of_countries, list_of_russian_cities
 
 
