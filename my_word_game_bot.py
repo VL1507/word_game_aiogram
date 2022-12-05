@@ -6,7 +6,9 @@ from keyboards import buttons
 from database import create_db, insert_update_table
 from word_lists import list_of_countries, list_of_russian_cities
 
+
 """     @my_word_game_bot     """
+
 
 bot = Bot(token='', parse_mode="HTML")
 dp = Dispatcher(bot=bot)
