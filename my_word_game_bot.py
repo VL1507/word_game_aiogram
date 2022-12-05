@@ -16,7 +16,8 @@ dp = Dispatcher(bot=bot)
 
 @dp.message_handler(commands=["start", "help"])
 async def start_help(msg: types.Message):
-    insert_update_table(msg.from_user.id, msg.from_user.username, list_of_countries, list_of_russian_cities)
+
+    insert_update_table(msg, list_of_countries, list_of_russian_cities)
 
     text = "Привет!\nЧтобы поиграть в страны, отправь /countries\nЧтобы поиграть в русские города, отправь /russian_cities\n\nВместо буквы \"ё\" надо писать \"е\""
     await msg.answer(text, reply_markup=buttons)
@@ -24,23 +25,27 @@ async def start_help(msg: types.Message):
 
 @dp.message_handler(commands="countries")
 async def countries(msg: types.Message):
-    insert_update_table(msg.from_user.id, msg.from_user.username, list_of_countries, list_of_russian_cities)
+
+    insert_update_table(msg, list_of_countries, list_of_russian_cities)
 
     with sqlite3.connect("my_games.sqlite") as con:
         cur = con.cursor()
-        cur.execute("UPDATE users SET play_countries = ?, play_russian_cities = ? WHERE user_id = ?", (1, 0, msg.from_user.id))
+        cur.execute(
+            "UPDATE users SET play_countries = ?, play_russian_cities = ? WHERE user_id = ?", (1, 0, msg.from_user.id))
 
     await msg.answer("введите страну")
 
 
 @dp.message_handler(commands="russian_cities")
 async def russian_cities(msg: types.Message):
-    insert_update_table(msg.from_user.id, msg.from_user.username, list_of_countries, list_of_russian_cities)
+
+    insert_update_table(msg, list_of_countries, list_of_russian_cities)
 
     with sqlite3.connect("my_games.sqlite") as con:
         cur = con.cursor()
-        cur.execute("UPDATE users SET play_countries = ?, play_russian_cities = ? WHERE user_id = ?", (0, 1, msg.from_user.id))
-            
+        cur.execute(
+            "UPDATE users SET play_countries = ?, play_russian_cities = ? WHERE user_id = ?", (0, 1, msg.from_user.id))
+
     await msg.answer("введите город")
 
 
