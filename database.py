@@ -37,7 +37,7 @@ def create_db() -> None:
 
 
 def insert_update_table(msg, list_of_countries: list, list_of_russian_cities: list) -> None:
-    """'обнуляет' или создает запись о человеке в countries_game"""
+    """'обнуляет' или создает запись о человеке в таблицах"""
     with sqlite3.connect("my_games.sqlite") as con:
         cur = con.cursor()
 
