@@ -44,13 +44,13 @@ def insert_update_table(msg, list_of_countries: list, list_of_russian_cities: li
         if (msg.from_user.id,) not in list(cur.execute("SELECT user_id FROM countries_game")):
             cur.execute("INSERT INTO countries_game VALUES (?, ?, ?, ?, ?)", (msg.from_user.id, msg.from_user.username, "_".join(list_of_countries), "_", 'KOSTYL'))
         else:
-            cur.execute("UPDATE countries_game SET bot_lst = ?, used_words = ?, last_letter = ? WHERE user_id  = ?", ("_".join(list_of_countries), '_', 'KOSTYL', msg.from_user.id))
+            cur.execute("UPDATE countries_game SET bot_lst = ?, used_words = ?, last_letter = ? WHERE user_id  = ?", ("_".join(list_of_countries), "_", 'KOSTYL', msg.from_user.id))
 
         
         if (msg.from_user.id,) not in list(cur.execute("SELECT user_id FROM russian_cities_game")):
             cur.execute("INSERT INTO russian_cities_game VALUES (?, ?, ?, ?, ?)", (msg.from_user.id, msg.from_user.username, "_".join(list_of_russian_cities), "_", 'KOSTYL'))
         else:
-            cur.execute("UPDATE russian_cities_game SET bot_lst = ?, used_words = ?, last_letter = ? WHERE user_id  = ?", ("_".join(list_of_russian_cities), '_', 'KOSTYL', msg.from_user.id))
+            cur.execute("UPDATE russian_cities_game SET bot_lst = ?, used_words = ?, last_letter = ? WHERE user_id  = ?", ("_".join(list_of_russian_cities), "_", 'KOSTYL', msg.from_user.id))
 
         
         if (msg.from_user.id,) not in list(cur.execute("SELECT user_id FROM users")):
